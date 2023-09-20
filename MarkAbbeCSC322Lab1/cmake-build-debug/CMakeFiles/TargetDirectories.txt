@@ -1,0 +1,3 @@
+C:/Users/marka/Documents/CSC-322-HW/MarkAbbeCSC322Lab1/cmake-build-debug/CMakeFiles/MarkAbbeCSC322Lab1.dir
+C:/Users/marka/Documents/CSC-322-HW/MarkAbbeCSC322Lab1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/marka/Documents/CSC-322-HW/MarkAbbeCSC322Lab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
