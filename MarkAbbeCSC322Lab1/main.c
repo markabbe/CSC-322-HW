@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Function to encrypt a string using Caesar's Cipher
+//Encrypt function that takes a character array, and an integer
 void encrypt(char *plaintext, int key) {
     int i;
     char encrypted[strlen(plaintext) + 1]; // +1 for the null terminator
@@ -28,7 +28,7 @@ void encrypt(char *plaintext, int key) {
     printf("Encrypted text: %s\n", encrypted);
 }
 
-// Function to decrypt a string using Caesar's Cipher
+//Decrypt function that takes a character array, and an integer
 void decrypt(char *ciphertext, int key) {
     int i;
     char decrypted[strlen(ciphertext) + 1]; // +1 for the null terminator
@@ -54,7 +54,7 @@ void decrypt(char *ciphertext, int key) {
     printf("Decrypted text: %s\n", decrypted);
 }
 
-// Function to encode a decimal number into unary code
+//Unary function that takes an integer and converts it to unary
 void unary(int number) {
     if (number < 0) {
         printf("Unary code is not defined for negative numbers.\n");
@@ -80,7 +80,7 @@ int findMSB(int number) {
     return position;
 }
 
-// Function to encode a decimal number into gamma code (optional)
+//Gamma function that takes an integer and converts it to gamma
 void gamma(int number) {
     if (number < 0) {
         printf("Gamma code is not defined for negative numbers.\n");
@@ -104,7 +104,7 @@ void gamma(int number) {
     putchar('\n');
 }
 
-// Function to encode a string in reverse order (optional)
+//Encode function that takes a character array and reverses the string
 void encode(char *input) {
     int length = strlen(input);
 
@@ -123,10 +123,8 @@ int main() {
     char ciphertext[100];
     int key;
     int number;
-    int number2;
+    int number2; //might not need
     char input[100];
-
-    printf("Welcome to the Text Transformation Program!\n");
 
     while (1) {
         printf("Available commands: encrypt, decrypt, unary, gamma, encode, exit\n");
