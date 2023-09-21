@@ -3,121 +3,140 @@
 #include <stdlib.h>
 
 //Encrypt function that takes a character array, and an integer
-void encrypt(char *plaintext, int key) {
+void encrypt(char *plaintext, int key)
+{
     int i;
-    char encrypted[strlen(plaintext) + 1]; // +1 for the null terminator
+    char encrypted[strlen(plaintext) + 1];
 
-    for (i = 0; plaintext[i] != '\0'; i++) {
+    for (i = 0; plaintext[i] != '\0'; i++)
+    {
         char c = plaintext[i];
 
-        // Check if the character is an uppercase letter
-        if (c >= 'A' && c <= 'Z') {
+        if (c >= 'A' && c <= 'Z')
+        {
             encrypted[i] = 'A' + (c - 'A' + key) % 26;
         }
-            // Check if the character is a lowercase letter
-        else if (c >= 'a' && c <= 'z') {
+        else if (c >= 'a' && c <= 'z')
+        {
             encrypted[i] = 'a' + (c - 'a' + key) % 26;
         }
-            // If it's not a letter, leave it unchanged
-        else {
+        else
+        {
             encrypted[i] = c;
         }
     }
 
-    encrypted[i] = '\0'; // Null-terminate the encrypted string
+    encrypted[i] = '\0';
     printf("Encrypted text: %s\n", encrypted);
-}
+} //encrypt function
 
 //Decrypt function that takes a character array, and an integer
-void decrypt(char *ciphertext, int key) {
+void decrypt(char *ciphertext, int key)
+{
     int i;
-    char decrypted[strlen(ciphertext) + 1]; // +1 for the null terminator
+    char decrypted[strlen(ciphertext) + 1];
 
-    for (i = 0; ciphertext[i] != '\0'; i++) {
+    for (i = 0; ciphertext[i] != '\0'; i++)
+    {
         char c = ciphertext[i];
 
-        // Check if the character is an uppercase letter
-        if (c >= 'A' && c <= 'Z') {
+        if (c >= 'A' && c <= 'Z')
+        {
             decrypted[i] = 'A' + (c - 'A' - key + 26) % 26;
         }
-            // Check if the character is a lowercase letter
-        else if (c >= 'a' && c <= 'z') {
+        else if (c >= 'a' && c <= 'z')
+        {
             decrypted[i] = 'a' + (c - 'a' - key + 26) % 26;
         }
-            // If it's not a letter, leave it unchanged
-        else {
+        else
+        {
             decrypted[i] = c;
         }
     }
 
-    decrypted[i] = '\0'; // Null-terminate the decrypted string
+    decrypted[i] = '\0';
     printf("Decrypted text: %s\n", decrypted);
-}
+} //decrypt function
 
 //Unary function that takes an integer and converts it to unary
-void unary(int number) {
-    if (number < 0) {
+void unary(int number)
+{
+    if (number < 0)
+    {
         printf("Unary code is not defined for negative numbers.\n");
         return;
     }
 
     printf("Unary code for %d is: ", number);
 
-    for (int i = 0; i < number; i++) {
-        putchar('1'); // Print '1' for each digit
+    for (int i = 0; i < number; i++)
+    {
+        putchar('1');
     }
 
-    putchar('0'); // Add a '0' at the end to terminate the unary code
+    putchar('0');
     putchar('\n');
-}
+} //unary function
 
-int findMSB(int number) {
+//FindMSB function that takes an int and finds the most significant bit
+int findMSB(int number)
+{
     int position = 0;
-    while (number > 1) {
+    while (number > 1)
+    {
         number >>= 1;
         position++;
     }
     return position;
-}
+} //findMSB function
 
 //Gamma function that takes an integer and converts it to gamma
-void gamma(int number) {
-    if (number < 0) {
+void gamma(int number)
+{
+    if (number < 0)
+    {
         printf("Gamma code is not defined for negative numbers.\n");
         return;
     }
 
     printf("Gamma code for %d is: ", number);
 
-    if (number == 0) {
+    if (number == 0)
+    {
         putchar('0');
-    } else {
+    }
+    else
+    {
         int msbPosition = findMSB(number);
 
-        // Print unary code for the length (number of '1's)
-        for (int i = 0; i <= msbPosition; i++) {
+        for (int i = 0; i <= msbPosition; i++)
+        {
             putchar('1');
         }
     }
 
-    putchar('0'); // Add a '0' at the end to terminate the gamma code
+    putchar('0');
     putchar('\n');
-}
+} //gamma function
 
 //Encode function that takes a character array and reverses the string
-void encode(char *input) {
+void encode(char *input)
+{
     int length = strlen(input);
 
     printf("Reversed string: ");
-    // Traverse the string in reverse and print characters
-    for (int i = length - 1; i >= 0; i--) {
+    for (int i = length - 1; i >= 0; i--)
+    {
         putchar(input[i]);
     }
 
     putchar('\n');
-}
+} //encode function
 
-int main() {
+//**********************************************************************************************************************
+
+int main()
+{
     char plaintext[100];
     char command[100];
     char ciphertext[100];
@@ -126,69 +145,94 @@ int main() {
     int number2; //might not need
     char input[100];
 
-    while (1) {
+    while (1)
+    {
         printf("Available commands: encrypt, decrypt, unary, gamma, encode, exit\n");
         printf("Enter a command: ");
         fgets(command, sizeof(command), stdin);
 
-        // Remove newline character from user input
         command[strcspn(command, "\n")] = '\0';
 
-        // Parse the user's input and extract the command and parameters
         char *cmd = strtok(command, "(");
 
-        if (strcmp(cmd, "encrypt") == 0) {
-            // Extract the key and plaintext, and call the encrypt function
+        if (strcmp(cmd, "encrypt") == 0)
+        {
             char *params = strtok(NULL, ")");
-            if (params != NULL) {
+            if (params != NULL)
+            {
                 sscanf(params, "%d, \"%[^\"]\"", &key, plaintext);
                 encrypt(plaintext, key);
-            } else {
+            }
+            else
+            {
                 printf("Invalid command syntax for encrypt.\n");
             }
-        } else if (strcmp(cmd, "decrypt") == 0) {
-            // Extract the key and ciphertext, and call the decrypt function
+        } //encrypt
+
+        else if (strcmp(cmd, "decrypt") == 0)
+        {
             char *params = strtok(NULL, ")");
             if (params != NULL) {
                 sscanf(params, "%d, \"%[^\"]\"", &key, ciphertext);
                 decrypt(ciphertext, key);
-            } else {
+            }
+            else
+            {
                 printf("Invalid command syntax for decrypt.\n");
             }
-        } else if (strcmp(cmd, "unary") == 0) {
-            // Extract the number and call the unary function
+        } //decrpyt
+
+        else if (strcmp(cmd, "unary") == 0)
+        {
             char *params = strtok(NULL, ")");
-            if (params != NULL) {
+            if (params != NULL)
+            {
                 sscanf(params, "%d", &number);
                 unary(number);
-            } else {
+            }
+            else
+            {
                 printf("Invalid command syntax for unary.\n");
             }
-        } else if (strcmp(cmd, "gamma") == 0) {
-            // Extract the number and call the gamma function (optional)
+        } //unary
+
+        else if (strcmp(cmd, "gamma") == 0)
+        {
             char *params = strtok(NULL, ")");
             if (params != NULL) {
                 sscanf(params, "%d", &number);
                 gamma(number);
-            } else {
+            }
+            else
+            {
                 printf("Invalid command syntax for gamma.\n");
             }
-        } else if (strcmp(cmd, "encode") == 0) {
-            // Extract the input string and call the encode function (optional)
+        } //gamma
+
+        else if (strcmp(cmd, "encode") == 0)
+        {
             char *params = strtok(NULL, ")");
             if (params != NULL) {
                 sscanf(params, "\"%[^\"]\"", input);
                 encode(input);
-            } else {
+            }
+            else
+            {
                 printf("Invalid command syntax for encode.\n");
             }
-        } else if (strcmp(cmd, "exit") == 0) {
+        } //encode
+
+        else if (strcmp(cmd, "exit") == 0)
+        {
             printf("Exiting the program. Goodbye!\n");
             break;
-        } else {
+        }
+
+        else
+        {
             printf("Invalid command. Please try again.\n");
         }
-    }
+    } //end while
 
     return 0;
 }
