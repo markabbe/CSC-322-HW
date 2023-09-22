@@ -2,61 +2,52 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Encrypt function that takes a character array, and an integer
-void encrypt(char *plaintext, int key)
+//Encrypt function that takes a character array
+void encrypt(char *text)
 {
     int i;
-    char encrypted[strlen(plaintext) + 1];
+    int key = 5;
 
-    for (i = 0; plaintext[i] != '\0'; i++)
+    for (i = 0; text[i] != '\0'; i++)
     {
-        char c = plaintext[i];
+        char c = text[i];
 
         if (c >= 'A' && c <= 'Z')
         {
-            encrypted[i] = 'A' + (c - 'A' + key) % 26;
+            text[i] = 'A' + (c - 'A' + key) % 26;
         }
         else if (c >= 'a' && c <= 'z')
         {
-            encrypted[i] = 'a' + (c - 'a' + key) % 26;
-        }
-        else
-        {
-            encrypted[i] = c;
+            text[i] = 'a' + (c - 'a' + key) % 26;
         }
     }
 
-    encrypted[i] = '\0';
-    printf("Encrypted text: %s\n", encrypted);
+    printf("Encrypted text: %s\n", text);
 } //encrypt function
 
-//Decrypt function that takes a character array, and an integer
-void decrypt(char *ciphertext, int key)
+//Decrypt function that takes a character array
+void decrypt(char *text)
 {
     int i;
-    char decrypted[strlen(ciphertext) + 1];
+    int key = 5;
 
-    for (i = 0; ciphertext[i] != '\0'; i++)
+    for (i = 0; text[i] != '\0'; i++)
     {
-        char c = ciphertext[i];
+        char c = text[i];
 
         if (c >= 'A' && c <= 'Z')
         {
-            decrypted[i] = 'A' + (c - 'A' - key + 26) % 26;
+            text[i] = 'A' + (c - 'A' - key + 26) % 26;
         }
         else if (c >= 'a' && c <= 'z')
         {
-            decrypted[i] = 'a' + (c - 'a' - key + 26) % 26;
-        }
-        else
-        {
-            decrypted[i] = c;
+            text[i] = 'a' + (c - 'a' - key + 26) % 26;
         }
     }
 
-    decrypted[i] = '\0';
-    printf("Decrypted text: %s\n", decrypted);
-} //decrypt function
+    printf("Decrypted text: %s\n", text);
+}//decrypt function
+
 
 //Unary function that takes an integer and converts it to unary
 void unary(int number)
@@ -148,6 +139,7 @@ int main()
     while (1)
     {
         printf("Available commands: encrypt, decrypt, unary, gamma, encode, exit\n");
+        printf("Examples: encrypt(\"Hello World\"), decrypt(\"Mjqqt Btwqi\"), unary(5), gamma(7), encode(\"Reverse\")\n");
         printf("Enter a command: ");
         fgets(command, sizeof(command), stdin);
 
@@ -160,8 +152,9 @@ int main()
             char *params = strtok(NULL, ")");
             if (params != NULL)
             {
-                sscanf(params, "%d, \"%[^\"]\"", &key, plaintext);
-                encrypt(plaintext, key);
+                char text[100];
+                sscanf(params, "\"%[^\"]\"", text);
+                encrypt(text);
             }
             else
             {
@@ -173,14 +166,16 @@ int main()
         {
             char *params = strtok(NULL, ")");
             if (params != NULL) {
-                sscanf(params, "%d, \"%[^\"]\"", &key, ciphertext);
-                decrypt(ciphertext, key);
+                char text[100];
+                sscanf(params, "\"%[^\"]\"", text);
+                decrypt(text);
             }
             else
             {
                 printf("Invalid command syntax for decrypt.\n");
             }
-        } //decrpyt
+        } //decrypt
+
 
         else if (strcmp(cmd, "unary") == 0)
         {
